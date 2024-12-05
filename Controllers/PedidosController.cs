@@ -40,7 +40,6 @@ namespace construcaoAPI_INF12.Api.Controllers
                                     ).ToList()
                 })
                 .ToListAsync();
-
             return Ok(resultPedidos);
         }
 
@@ -141,14 +140,12 @@ namespace construcaoAPI_INF12.Api.Controllers
             return NoContent();
         }
 
-        // PUT: api/Pedidos/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-
         // POST: api/Pedidos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Pedido>> PostPedido(PedidoDto pedido)
         {
+            // Verificar se o cliente existe
             var ClienteNoBanco = await _context.Clientes.FindAsync(pedido.idCliente);
             if (ClienteNoBanco == null)
             {
@@ -169,6 +166,7 @@ namespace construcaoAPI_INF12.Api.Controllers
 
             foreach (var item in pedido.itensPedido)
             {
+
                 var produtoExistente = await _context.Produtos.FindAsync(item);
                 if (produtoExistente == null)
                 {
@@ -183,6 +181,7 @@ namespace construcaoAPI_INF12.Api.Controllers
 
                 await _context.ItensPedidos.AddAsync(novoItemComanda);
             }
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetPedido", new { id = novoPedido.idPedido }, pedido);
@@ -198,7 +197,7 @@ namespace construcaoAPI_INF12.Api.Controllers
                 return NotFound();
             }
 
-            await _context.Database.ExecuteSqlRawAsync("DELETE FROM ItemPedidos WHERE idPedido = 0", id);
+            await _context.Database.ExecuteSqlRawAsync("DELETE FROM ItemPedidos WHERE idPedido = {0}", id);
 
             _context.Pedidos.Remove(pedido);
 
@@ -206,6 +205,8 @@ namespace construcaoAPI_INF12.Api.Controllers
 
             return NoContent();
         }
+
+
         private bool PedidoExists(int id)
         {
             return _context.Pedidos.Any(e => e.idPedido == id);
