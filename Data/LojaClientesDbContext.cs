@@ -24,6 +24,11 @@ namespace construcaoAPI_INF12.Data
                 .HasForeignKey(f => f.idPedido)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Cliente>()
+                .HasMany<Pedido>()
+                .WithOne(p => p.Cliente)
+                .HasForeignKey(f => f.idCliente);
+
             modelBuilder.Entity<Pedido>()
                 .HasMany<ItensPedido>()
                 .WithOne(ip => ip.Pedido)
@@ -48,7 +53,7 @@ namespace construcaoAPI_INF12.Data
             {
                 optionsBuilder.UseMySql(
                     "Server=localhost;Port=3306;Database=meu_banco;User=root;Password=minha_senha;",
-                    new MySqlServerVersion(new Version(8, 0, 27)) // Substitua pela sua versão do MySQL
+                    new MySqlServerVersion(new Version(8, 0, 27))
                 );
             }
         }

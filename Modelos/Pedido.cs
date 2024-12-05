@@ -13,6 +13,7 @@ namespace construcaoAPI_INF12.Modelos
         public string statusPedido { get; set; }
         public decimal valorTotalPedido { get; set; }
         public string observacoesPedido { get; set; }
+        public virtual Cliente Cliente { get; set; }
         public ICollection<ItensPedido> itensPedidos { get; set; }
     }
 }

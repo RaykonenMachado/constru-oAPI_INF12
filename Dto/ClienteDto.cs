@@ -11,6 +11,6 @@
         public string cidadeCliente { get; set; }
         public string estadoCliente { get; set; }
         public string cepCliente { get; set; }
-        public string dataCadastroCliente { get; set; }
+        public DateTime dataCadastroCliente { get; set; }
     }
 }

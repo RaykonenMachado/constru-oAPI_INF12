@@ -38,6 +38,7 @@ namespace construcaoAPI_INF12.Controllers
                 cidadeCliente = c.cidadeCliente,
                 estadoCliente = c.estadoCliente,
                 cepCliente = c.cepCliente,
+                dataCadastroCliente = DateTime.Now,
             }).ToListAsync();
 
             return Ok(clientesSemCampoPedido);
@@ -60,6 +61,7 @@ namespace construcaoAPI_INF12.Controllers
                     cidadeCliente = c.cidadeCliente,
                     estadoCliente = c.estadoCliente,
                     cepCliente = c.cepCliente,
+                    dataCadastroCliente = c.dataCadastroCliente,
                 }).FirstOrDefaultAsync();
 
             if (clientesSemCampoPedido == null)
@@ -92,6 +94,7 @@ namespace construcaoAPI_INF12.Controllers
             clienteAtual.cidadeCliente = cliente.cidadeCliente;
             clienteAtual.estadoCliente = cliente.estadoCliente;
             clienteAtual.cepCliente = cliente.cepCliente;
+            clienteAtual.dataCadastroCliente = cliente.dataCadastroCliente;
 
             _context.Entry(clienteAtual).State = EntityState.Modified;
 
