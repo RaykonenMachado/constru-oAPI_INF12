@@ -83,13 +83,13 @@ namespace construcaoAPI_INF12.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCliente(int id)
         {
-            var cliente = await _context.Clientes.FindAsync(id);
-            if (cliente == null)
+            var produto = await _context.Produtos.FindAsync(id);
+            if (produto == null)
             {
-                return NotFound("Cliente não encontrado.");
+                return NotFound("Produto não encontrado.");
             }
 
-            _context.Clientes.Remove(cliente);
+            _context.Produtos.Remove(produto);
             await _context.SaveChangesAsync();
 
             return NoContent();

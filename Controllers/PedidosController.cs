@@ -197,7 +197,7 @@ namespace construcaoAPI_INF12.Api.Controllers
                 return NotFound();
             }
 
-            await _context.Database.ExecuteSqlRawAsync("DELETE FROM ItemPedidos WHERE idPedido = {0}", id);
+            await _context.Database.ExecuteSqlRawAsync("DELETE FROM itenspedidos WHERE idPedido = {0}", id);
 
             _context.Pedidos.Remove(pedido);
 
@@ -205,7 +205,6 @@ namespace construcaoAPI_INF12.Api.Controllers
 
             return NoContent();
         }
-
 
         private bool PedidoExists(int id)
         {

@@ -16,18 +16,20 @@ namespace construcaoAPI_INF12.Data
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<ItensPedido> ItensPedidos { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Pedido>()
-                .HasOne<Cliente>()
+                .HasOne(p => p.Cliente)
                 .WithMany(c => c.Pedidos)
-                .HasForeignKey(f => f.idPedido)
+                .HasForeignKey(p => p.idCliente)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Cliente>()
-                .HasMany<Pedido>()
+                .HasMany(c => c.Pedidos)
                 .WithOne(p => p.Cliente)
-                .HasForeignKey(f => f.idCliente);
+                .HasForeignKey(p => p.idCliente)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Pedido>()
                 .HasMany<ItensPedido>()
